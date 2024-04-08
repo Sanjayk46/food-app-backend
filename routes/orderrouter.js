@@ -5,6 +5,7 @@ const {orderModel} = require('../database/orderModel');
  const {userModel} = require('../database/userModel');
 const OrderStatus = require('../constants/orderstatus');
 const sendEmailReceipt = require('../helper/mailhelper');
+const {admin} = require('../middleware/admin');
 const BAD_REQUEST= 400;
 const UNAUTHORIZED = 401;
 const router = express.Router();
@@ -78,7 +79,9 @@ router.get(
   })
 );
 
-router.get('/allstatus', (req, res) => {
+router.get('/allstatus', 
+handler,
+async(req, res) => {
   const allStatus = Object.values(OrderStatus);
   res.send(allStatus);
 });

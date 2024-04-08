@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { foodModel } =require('../database/foodModel');
 const handler =require ('express-async-handler');
-const admin = require('../middleware/admin');
+const {admin} = require('../middleware/admin');
+
 
 // router.get('/',handler(async(req,res)=>{
 //   res.send(samplefoods)
@@ -161,6 +162,35 @@ router.get(
   })
 );
 
+router.post(
+  '/',
+  admin,
+  handler(async (req,res)=>{
+    const { name, price, tags, favorite, origins, cookTime } = req.body;
+    const food = new foodModel({
+      name,
+      price,
+      tags: tags.split(','), // Assuming tags is a comma-separated string
+      favorite,
+      imageUrl, // Assign the uploaded imageUrl or undefined if no file is uploaded
+      origins: origins.split(','), // Assuming origins is a comma-separated string
+      cookTime,
+    });
 
+    try {
+      // Save the food document to the database
+      await food.save();
+      res.send(food);
+    } catch (error) {
+      // Handle validation errors
+      if (error.name === 'ValidationError') {
+        const errors = Object.values(error.errors).map(err => err.message);
+        return res.status(400).json({ errors });
+      }
+      console.error('Error saving food:', error);
+      res.status(500).send('Error saving food');
+    }
+  })
+);
 
 module.exports = router;

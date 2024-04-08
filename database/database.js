@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const {userModel} = require("./userModel");
+//const {hotelModel}= require("./hotelModel");
 const { sampleusers } = require('../data');
+//const { samplehotel } = require('../data');
 const {foodModel} = require("./foodModel");
 const {samplefoods} = require('../data');
 const dbConnection = async ()=>{
@@ -9,6 +11,7 @@ const dbConnection = async ()=>{
         
         await seedFoods();
         await seedusers();
+        //await seedhotels();
         console.log("DB Connected");
     } catch (error) {
         console.log(error.message," error in connecting db");
@@ -29,6 +32,7 @@ async function seedusers() {
   
   console.log('Users seed is done!');
 }
+
 
 async function seedFoods() {
   const foodsCount = await foodModel.countDocuments();

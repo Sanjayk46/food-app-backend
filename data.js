@@ -129,6 +129,16 @@ const samplefoods=[
           isAdmin: true,
         },
      ];
+const samplehotel = [
+      {
+        id: 2,
+        name: 'Jane Doe',
+        email: 'jane@gmail.com',
+        password: '12345',
+        address: 'Shanghai',
+        isAdmin: true,
+      },
+     ];
      const sampletags = [
       { name: 'All', count: 9 },
       { name: 'FastFood', count: 5 },
@@ -139,4 +149,4 @@ const samplefoods=[
       { name: 'Fry', count: 1 },
       { name: 'drink', count: 1 },
     ];
-     module.exports={sampleusers,samplefoods,sampletags}
+     module.exports={sampleusers,samplefoods,sampletags, samplehotel}
