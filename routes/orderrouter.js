@@ -79,9 +79,7 @@ router.get(
   })
 );
 
-router.get('/allstatus', 
-handler,
-async(req, res) => {
+router.get('/allstatus',async(req, res) => {
   const allStatus = Object.values(OrderStatus);
   res.send(allStatus);
 });
@@ -93,7 +91,7 @@ router.get(
     const user = await userModel.findById(req.user.id);
     const filter = {};
 
-    if (!user.isAdmin) filter.user = user.id;
+    if (!user.isAdmin) filter.user = user._id;
     if (status) filter.status = status;
 
     const orders = await orderModel.find(filter).sort('-createdAt');
